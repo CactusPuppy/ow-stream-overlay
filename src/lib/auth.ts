@@ -11,10 +11,17 @@ export const { handle } = SvelteKitAuth({
       clientId: AUTH_TWITCH_ID,
       clientSecret: AUTH_TWITCH_SECRET,
       authorization: {
-        url: "https://id.twitch.tv/oauth2/authorize?response_type=code&prompt=login",
+        issuer: "https://id.twitch.tv/oauth2/",
         params: {
           force_verify: "true",
-          scope: ["channel:bot", "moderation:read", "moderator:manage:announcements"].join("+")
+          scope: ["openid", "user:read:email", "channel:bot", "moderation:read", "moderator:manage:announcements"].join(" "),
+          claims: JSON.stringify({
+            "id_token": {
+              "preferred_username": null,
+              "email": null,
+              "picture": null
+            }
+          }),
         }
       }
     })
