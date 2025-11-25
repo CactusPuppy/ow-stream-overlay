@@ -4,7 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { AUTH_TWITCH_ID, AUTH_TWITCH_SECRET } from "$env/static/private";
 import { db } from "./db/client.server";
 
-export const { handle } = SvelteKitAuth({
+export const { handle, signIn, signOut } = SvelteKitAuth({
   adapter: PrismaAdapter(db),
   providers: [
     Twitch({
@@ -14,7 +14,13 @@ export const { handle } = SvelteKitAuth({
         issuer: "https://id.twitch.tv/oauth2/",
         params: {
           force_verify: "true",
-          scope: ["openid", "user:read:email", "channel:bot", "moderation:read", "moderator:manage:announcements"].join(" "),
+          scope: [
+            "openid",
+            "user:read:email",
+            "channel:bot",
+            "moderation:read",
+            "moderator:manage:announcements"
+          ].join(" "),
           claims: JSON.stringify({
             "id_token": {
               "preferred_username": null,
