@@ -1,4 +1,4 @@
-import { signOut } from '$lib/auth';
+import { signOut } from '$lib/auth/auth';
 import type { Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {

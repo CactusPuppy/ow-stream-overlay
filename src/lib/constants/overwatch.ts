@@ -1,0 +1,191 @@
+import { toSlug } from "..//utils/string";
+import type { OverwatchHeroData, OverwatchHeroName } from "../types/overwatch";
+
+export const overwatchHeroImage = (hero: OverwatchHeroName) => `images/content/overwatch/heroes/${toSlug(hero.toLowerCase())}.png`;
+
+
+export const overwatchHeroes: OverwatchHeroData[] = [
+  {
+    name: "D.Va",
+    role: "Tank",
+  },
+  {
+    name: "Doomfist",
+    role: "Tank",
+  },
+  {
+    name: "Hazard",
+    role: "Tank",
+  },
+  {
+    name: "Junker Queen",
+    role: "Tank",
+  },
+  {
+    name: "Mauga",
+    role: "Tank",
+  },
+  {
+    name: "Orisa",
+    role: "Tank",
+  },
+  {
+    name: "Ramattra",
+    role: "Tank",
+  },
+  {
+    name: "Reinhardt",
+    role: "Tank",
+  },
+  {
+    name: "Roadhog",
+    role: "Tank",
+  },
+  {
+    name: "Sigma",
+    role: "Tank",
+  },
+  {
+    name: "Winston",
+    role: "Tank",
+  },
+  {
+    name: "Wrecking Ball",
+    role: "Tank",
+  },
+  {
+    name: "Zarya",
+    role: "Tank",
+  },
+  {
+    name: "Ashe",
+    role: "Damage",
+  },
+  {
+    name: "Bastion",
+    role: "Damage",
+  },
+  {
+    name: "Cassidy",
+    role: "Damage",
+  },
+  {
+    name: "Echo",
+    role: "Damage",
+  },
+  {
+    name: "Freja",
+    role: "Damage",
+  },
+  {
+    name: "Genji",
+    role: "Damage",
+  },
+  {
+    name: "Hanzo",
+    role: "Damage",
+  },
+  {
+    name: "Junkrat",
+    role: "Damage",
+  },
+  {
+    name: "Mei",
+    role: "Damage",
+  },
+  {
+    name: "Pharah",
+    role: "Damage",
+  },
+  {
+    name: "Reaper",
+    role: "Damage",
+  },
+  {
+    name: "Sojourn",
+    role: "Damage",
+  },
+  {
+    name: "Soldier: 76",
+    role: "Damage",
+  },
+  {
+    name: "Sombra",
+    role: "Damage",
+  },
+  {
+    name: "Symmetra",
+    role: "Damage",
+  },
+  {
+    name: "Torbjörn",
+    role: "Damage",
+  },
+  {
+    name: "Tracer",
+    role: "Damage",
+  },
+  {
+    name: "Venture",
+    role: "Damage",
+  },
+  {
+    name: "Widowmaker",
+    role: "Damage",
+  },
+  {
+    name: "Ana",
+    role: "Support",
+  },
+  {
+    name: "Baptiste",
+    role: "Support",
+  },
+  {
+    name: "Brigitte",
+    role: "Support",
+  },
+  {
+    name: "Illari",
+    role: "Support",
+  },
+  {
+    name: "Juno",
+    role: "Support",
+  },
+  {
+    name: "Kiriko",
+    role: "Support",
+  },
+  {
+    name: "Lifeweaver",
+    role: "Support",
+  },
+  {
+    name: "Lúcio",
+    role: "Support",
+  },
+  {
+    name: "Mercy",
+    role: "Support",
+  },
+  {
+    name: "Moira",
+    role: "Support",
+  },
+  {
+    name: "Wuyang",
+    role: "Support",
+  },
+  {
+    name: "Zenyatta",
+    role: "Support",
+  },
+];
+
+export const overwatchHeroFromHeroName = (heroName: OverwatchHeroName): OverwatchHeroData =>
+  overwatchHeroes.find((heroDatum) => heroDatum.name == heroName) ?? {
+    name: "Unknown Hero" as OverwatchHeroName,
+    role: "Damage",
+  };
+
