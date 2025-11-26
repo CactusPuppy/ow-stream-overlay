@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 async function main() {
   const adminUser = await prisma.user.findFirst({ where: { role: "ADMIN" } });
   if (!adminUser) {
-    throw new Error("No users found in database. Please create a user before running the seed script.");
+    throw new Error("No admin found in database. Please create a user before running the seed script.");
   }
   const db = enhance(prisma, { user: adminUser });
   await db.$transaction(async (tx) => {
