@@ -1,7 +1,7 @@
 import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import type { Actions } from "@sveltejs/kit";
-import { signIn } from "$lib/auth";
+import { signIn } from "$lib/auth/auth";
 
 export const load: PageServerLoad = async (event) => {
   const auth = await event.locals.auth();

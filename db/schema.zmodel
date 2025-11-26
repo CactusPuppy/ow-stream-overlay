@@ -6,6 +6,11 @@ datasource db {
     url = env("DATABASE_URL")
 }
 
+plugin prisma {
+    provider = "@core/prisma"
+    output = "../prisma/schema.prisma"
+}
+
 generator client {
     provider = "prisma-client-js"
 }
@@ -15,9 +20,16 @@ model OverlayItem {
     name           String
     description    String?
     icon           String
+    ownerId String?
+    owner User? @relation(fields: [ownerId], references: [id], onDelete: SetNull)
 
     itemCategories OverlayItemCategory[]
     itemStatuses   ItemInstanceStatus[]
+
+    @@deny('create', auth() == null)
+    @@allow('create', true)
+    @@allow('read', true)
+    @@allow('all', auth().role == ADMIN || owner == auth())
 }
 
 model OverlayItemCategory {
@@ -25,8 +37,19 @@ model OverlayItemCategory {
     name         String
     description  String?
     icon         String
+    ownerId String?
+    owner User? @relation(fields: [ownerId], references: [id], onDelete: SetNull)
 
     overlayItems OverlayItem[]
+
+    @@deny('create', auth() == null)
+    @@allow('create', true)
+    @@allow('read', true)
+    @@allow('all', auth().role == ADMIN || owner == auth())
+}
+
+type ItemStatusMetadata {
+    color String
 }
 
 model ItemInstanceStatus {
@@ -35,6 +58,10 @@ model ItemInstanceStatus {
     overlayId String
     overlay   ItemStatusesOverlayInstance @relation(fields: [overlayId], references: [id], onDelete: Cascade)
     items     OverlayItem[]
+    metadata  ItemStatusMetadata @json
+
+    @@deny('create', auth() == null)
+    @@allow('all', true) // Custom authorization logic needed to handle detecting Twitch moderators
 
     createdAt DateTime                    @default(now())
     updatedAt DateTime                    @updatedAt
@@ -52,6 +79,9 @@ model OverlayInstance {
     overlayType String
 
     @@delegate(overlayType)
+
+    @@deny('create', auth() == null)
+    @@allow('all', true) // Custom authorization logic needed to handle detecting Twitch moderators
 }
 
 model ItemStatusesOverlayInstance extends OverlayInstance {
@@ -74,10 +104,13 @@ model User {
     sessions              Session[]
     // Optional for WebAuthn support
     Authenticator         Authenticator[]
-    ownedOverlayInstances OverlayInstance[]
 
     createdAt             DateTime          @default(now())
     updatedAt             DateTime          @updatedAt
+
+    ownedOverlayInstances OverlayInstance[]
+    createdItems          OverlayItem[]
+    createdItemCategories OverlayItemCategory[]
 }
 
 model Account {
