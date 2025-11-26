@@ -24,7 +24,6 @@
 		"output": "../prisma/schema.prisma"
 	},
 	"devDependencies": {
-		"@auth/core": "^0.34.3",
 		"@auth/prisma-adapter": "^2.11.1",
 		"@auth/sveltekit": "^1.11.1",
 		"@eslint/compat": "^1.4.0",
